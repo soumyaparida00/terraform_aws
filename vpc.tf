@@ -11,7 +11,7 @@ resource "aws_vpc" "your_vpc_name" {
   }
 
 }
-resource "aws_subnet" "your_subnet_name_public-1b" {
+resource "aws_subnet" "your_subnet_name_public-1a" {
     vpc_id = "${aws_vpc.your_vpc_name.id}"
     cidr_block = "10.6.1.0/24"
     map_public_ip_on_launch = "true" //it makes this a public subnet
