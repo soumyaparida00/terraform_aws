@@ -1,93 +1,83 @@
-resource "aws_vpc" "your_vpc_name" {
+resource "aws_vpc" "vtb-test" {
   cidr_block = "10.6.0.0/16"
   enable_dns_support = "true"
   enable_dns_hostnames = "true"
   instance_tenancy = "default"
 
   tags = {
-    Name = "your_vpc_name"
-    Env = "your_env_name"
-    Project = "your_project_name"
+    Name = "vtb-test"
   }
 
 }
-resource "aws_subnet" "your_subnet_name_public-1a" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_subnet" "vtb-sub-pub-1a" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     cidr_block = "10.6.1.0/24"
     map_public_ip_on_launch = "true" //it makes this a public subnet
     availability_zone = "ap-south-1a"
     tags = {
-        Name = "your_subnet_name_public-1b"
-        Env = "your_env_name"
-        Project = "your_project_name"
+        Name = "vtb-sub-pub-1a"
     }
 }
-resource "aws_subnet" "your_subnet_name_public-1b" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_subnet" "vtb-sub-pub-1b" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     cidr_block = "10.6.2.0/24"
     map_public_ip_on_launch = "true" //it makes this a public subnet
     availability_zone = "ap-south-1b"
     tags = {
-        Name = "your_subnet_name_public-1b"
-        Env = "your_env_name"
-        Project = "your_project_name" 
+        Name = "vtb-sub-pub-1b"
     }
 }
-resource "aws_subnet" "your_subnet_name_public-1c" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_subnet" "vtb-sub-pub-1c" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     cidr_block = "10.6.3.0/24"
     map_public_ip_on_launch = "true" //it makes this a public subnet
     availability_zone = "ap-south-1c"
     tags = {
-        Name = "your_subnet_name_public-1c"
-        Env = "your_env_name"
-        Project = "your_project_name"
+        Name = "vtb-sub-pub-1c"
     }
 }
-resource "aws_subnet" "your_subnet_name_private-1a" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_subnet" "vtb-sub-pri-1a" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     cidr_block = "10.6.4.0/24"
     map_public_ip_on_launch = "false" //it makes this a public subnet
     availability_zone = "ap-south-1a"
     tags = {
-        Name = "your_subnet_name_private-1a"
+        Name = "vtb-sub-pri-1a"
         Env = "your_env_name"
         Project = "your_project_name"
         
     }
 }
-resource "aws_subnet" "your_subnet_name_private-1b" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_subnet" "vtb-sub-pri-1b" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     cidr_block = "10.6.5.0/24"
     map_public_ip_on_launch = "false" //it makes this a public subnet
     availability_zone = "ap-south-1b"
     tags = {
-        Name = "your_subnet_name_private-1b"
+        Name = "vtb-sub-pri-1b"
         Env = "your_env_name"
         Project = "your_project_name"
     }
 }
-resource "aws_subnet" "your_subnet_name_private-1c" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_subnet" "vtb-sub-pri-1c" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     cidr_block = "10.6.6.0/24"
     map_public_ip_on_launch = "false" //it makes this a public subnet
     availability_zone = "ap-south-1c"
     tags = {
-        Name = "your_subnet_name_private-1c"
+        Name = "vtb-sub-pri-1c"
         Env = "your_env_name"
         Project = "your_project_name"
     }
 }
-resource "aws_internet_gateway" "uat-igw" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_internet_gateway" "vtb-igw" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     tags = {
-        Name = "uat-igw"
-        Env = "your_env_name"
-        Project = "your_project_name"
+        Name = "vtb-igw"
     }
 }
-resource "aws_route_table" "uat-public-crt" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+resource "aws_route_table" "vtb-pub-crt" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
     
     route {
         //associated subnet can reach everywhere
@@ -97,25 +87,23 @@ resource "aws_route_table" "uat-public-crt" {
     }
     
     tags = {
-        Name = "uat-public-crt"
-        Env = "your_env_name"
-        Project = "your_project_name" 
+        Name = "vtb-pub-crt"
     }
 }
 resource "aws_route_table_association" "uat-crta-public-subnet-1a"{
     subnet_id = "${aws_subnet.uat-subnet-public-1a.id}"
-    route_table_id = "${aws_route_table.uat-public-crt.id}"
+    route_table_id = "${aws_route_table.vtb-pub-crt.id}"
 }
 resource "aws_route_table_association" "uat-crta-public-subnet-1b"{
     subnet_id = "${aws_subnet.uat-subnet-public-1b.id}"
-    route_table_id = "${aws_route_table.uat-public-crt.id}"
+    route_table_id = "${aws_route_table.vtb-pub-crt.id}"
 }
 resource "aws_route_table_association" "uat-crta-public-subnet-1c"{
     subnet_id = "${aws_subnet.uat-subnet-public-1c.id}"
-    route_table_id = "${aws_route_table.uat-public-crt.id}"
+    route_table_id = "${aws_route_table.vtb-pub-crt.id}"
 }
 resource "aws_security_group" "ssh-allowed" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+    vpc_id = "${aws_vpc.vtb-test.id}"
     
     egress {
         from_port = 0
@@ -134,13 +122,11 @@ resource "aws_security_group" "ssh-allowed" {
     }
     tags = {
         Name = "ssh-allowed"
-        Env = "your_env_name"
-        Project = "your_project_name"
     }
 
 }
 resource "aws_security_group" "openvpn" {
-    vpc_id = "${aws_vpc.your_vpc_name.id}"
+    vpc_id = "${aws_vpc.vtb-test.id}"
     
     egress {
         from_port = 0
@@ -169,7 +155,5 @@ resource "aws_security_group" "openvpn" {
     }
     tags = {
         Name = "openvpn"
-        Env = "your_env_name"
-        Project = "your_project_name"
     }
 }
