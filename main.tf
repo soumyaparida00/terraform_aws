@@ -8,10 +8,11 @@ terraform {
  }
 backend "s3" {
     # Replace this with your bucket name!
-    bucket         = "s3-bucket"
+    bucket         = "terraform-vtb"
     key            = "global/s3/terraform.tfstate"
-    region         = "ap-south-1"
+    region         = "us-east-1"
     # Replace this with your DynamoDB table name!
-    dynamodb_table = "terraform-up-and-running-locks"
+    dynamodb_table = "vtb-terraform-locks"
     encrypt        = true
   }
+}
