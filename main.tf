@@ -6,6 +6,7 @@ terraform {
      version = "~> 3.0"
    }
  }
+# This is just a test line, ignore.
 backend "s3" {
     # Replace this with your bucket name!
     bucket         = "s3-bucket"
@@ -15,3 +16,4 @@ backend "s3" {
     dynamodb_table = "terraform-up-and-running-locks"
     encrypt        = true
   }
+}
