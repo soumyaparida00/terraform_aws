@@ -5,6 +5,10 @@ terraform {
      source  = "hashicorp/aws"
      version = "~> 3.0"
    }
+   kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.10"
+    }
  }
 # This is just a test line, ignore.
 backend "s3" {
@@ -13,7 +17,7 @@ backend "s3" {
     key            = "global/s3/terraform.tfstate"
     region         = "ap-south-1"
     # Replace this with your DynamoDB table name!
-    dynamodb_table = "terraform-up-and-running-locks"
+    dynamodb_table = "vtb-terraform-locks"
     encrypt        = true
   }
 }
