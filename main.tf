@@ -10,6 +10,7 @@ terraform {
       version = ">= 2.10"
     }
  }
+# This is just a test line, ignore.
 backend "s3" {
     # Replace this with your bucket name!
     bucket         = "s3-bucket"
