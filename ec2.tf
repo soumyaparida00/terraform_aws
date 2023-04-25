@@ -15,7 +15,7 @@ resource "aws_instance" "instance_name" {
         type        = "ssh"
         host        = self.public_ip
         user        = "ubuntu"
-        private_key = file("/Users/Soumya/.ssh/id_rsa")
+        private_key = file("/Users/lipsadas/.ssh/id_rsa")
         timeout     = "4m"
     }
     tags = {
@@ -25,7 +25,7 @@ resource "aws_instance" "instance_name" {
 // Sends your public key to the instance
 resource "aws_key_pair" "id_rsa" {
     key_name = "id_rsa"
-    public_key = file("/Users/Soumya/.ssh/id_rsa.pub")
+    public_key = file("/Users/lipsadas/.ssh/id_rsa.pub")
 
     tags = {
         Name = "test_server"
