@@ -15,3 +15,4 @@ backend "s3" {
     dynamodb_table = "terraform-up-and-running-locks"
     encrypt        = true
   }
+}
