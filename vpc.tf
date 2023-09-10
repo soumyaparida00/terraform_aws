@@ -96,3 +96,53 @@ resource "aws_route_table_association" "vtb-crt-sub-pub-1c"{
     subnet_id = "${aws_subnet.vtb-sub-pub-1c.id}"
     route_table_id = "${aws_route_table.vtb-pub-crt.id}"
 }
+resource "aws_security_group" "ssh-allowed" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
+    
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = -1
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress {
+        from_port = 22
+        to_port = 22
+        protocol = "tcp"
+        // This means, all ip address are allowed to ssh ! 
+        // Do not do it in the production. 
+        // Put your office or home address in it!
+        cidr_blocks = [
+          "10.0.0.0/8",
+          "171.76.83.123/32"
+        ]
+    }
+    tags = {
+        Name = "ssh-allowed"
+    }
+
+}
+resource "aws_security_group" "web-access" {
+    vpc_id = "${aws_vpc.vtb-test.id}"
+    
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = -1
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    //If you do not add this rule, you can not reach the NGINX  
+    ingress {
+        from_port = 80
+        to_port = 80
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+   
+}
