@@ -106,8 +106,8 @@ resource "aws_security_group" "ssh-allowed" {
         cidr_blocks = ["0.0.0.0/0"]
     }
     ingress {
-        from_port = 22
-        to_port = 22
+        from_port = 0
+        to_port = 65535
         protocol = "tcp"
         // This means, all ip address are allowed to ssh ! 
         // Do not do it in the production. 
