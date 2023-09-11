@@ -114,7 +114,7 @@ resource "aws_security_group" "ssh-allowed" {
         // Put your office or home address in it!
         cidr_blocks = [
           "10.0.0.0/8",
-          "171.76.83.123/32"
+          "0.0.0.0/0"
         ]
     }
     tags = {
